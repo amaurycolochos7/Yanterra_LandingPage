@@ -21,11 +21,24 @@
         }
     </script>
     <style>
-        /* Estilos personalizados adicionales si son necesarios */
+        /* Estilos personalizados adicionales */
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1620063251410-b1d7d022b7dc?q=80&w=2070&auto=format&fit=crop');
+            transition: background-image 1s ease-in-out;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        /* Overlay para asegurar legibilidad */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
     </style>
 </head>
@@ -58,9 +71,10 @@
         </div>
     </nav>
 
-    <!-- Sección Hero (Principal) -->
-    <header class="hero-bg h-screen min-h-[600px] flex items-center mt-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left w-full flex flex-col md:flex-row items-center justify-between">
+    <!-- Sección Hero (Principal) con Carousel -->
+    <header id="hero-carousel" class="hero-bg h-screen min-h-[600px] flex items-center mt-10">
+        <div class="hero-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left w-full flex flex-col md:flex-row items-center justify-between hero-content">
             <div class="md:w-3/5 text-white">
                 <span class="inline-block py-1 px-3 rounded-full bg-y-green bg-opacity-80 text-sm font-bold tracking-wider mb-4 border border-green-400">DISPONIBLE 24 HORAS</span>
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">
@@ -198,6 +212,30 @@
             <p class="text-sm mt-2">Servicio Vulcanizadora 24 hrs en García, N.L.</p>
         </div>
     </footer>
+
+    <!-- Script para el Carousel de Fondo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.getElementById('hero-carousel');
+            const images = [
+                '/bg/slide1.png',
+                '/bg/slide2.png',
+                '/bg/slide3.png'
+            ];
+            let currentIdx = 0;
+
+            function updateBackground() {
+                hero.style.backgroundImage = `url('${images[currentIdx]}')`;
+                currentIdx = (currentIdx + 1) % images.length;
+            }
+
+            // Inicializar el primer fondo
+            updateBackground();
+            
+            // Cambiar cada 5 segundos
+            setInterval(updateBackground, 5000);
+        });
+    </script>
 
 </body>
 </html>
